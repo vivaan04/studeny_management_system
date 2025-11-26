@@ -1,24 +1,21 @@
-// Results data storage
+
 let results = [];
 let students = [];
 let editingId = null;
 let deleteId = null;
 let filteredResults = [];
 
-// Initialize
 document.addEventListener('DOMContentLoaded', function() {
     loadData();
     populateDropdowns();
     applyFilters();
 });
 
-// Load data from localStorage
 function loadData() {
     const savedResults = localStorage.getItem('results');
     if (savedResults) {
         results = JSON.parse(savedResults);
     } else {
-        // Sample data
         results = [
             {
                 id: 1,
@@ -59,21 +56,16 @@ function loadData() {
         saveData();
     }
 
-    // Load students
     const savedStudents = localStorage.getItem('students');
     if (savedStudents) {
         students = JSON.parse(savedStudents);
     }
 }
 
-// Save data to localStorage
 function saveData() {
     localStorage.setItem('results', JSON.stringify(results));
 }
-
-// Populate dropdowns
 function populateDropdowns() {
-    // Populate student dropdown in form
     const studentSelect = document.getElementById('resultStudent');
     studentSelect.innerHTML = '<option value="">Select Student</option>';
     students.forEach(student => {
@@ -83,7 +75,6 @@ function populateDropdowns() {
         studentSelect.appendChild(option);
     });
 
-    // Populate filter dropdowns
     const uniqueStudents = [...new Set(results.map(r => r.studentName))];
     const studentFilter = document.getElementById('studentFilter');
     studentFilter.innerHTML = '<option value="">All Students</option>';
@@ -105,7 +96,6 @@ function populateDropdowns() {
     });
 }
 
-// Calculate grade based on marks
 function calculateGrade(marks) {
     if (marks >= 90) return { grade: 'A+', class: 'grade-a-plus' };
     if (marks >= 80) return { grade: 'A', class: 'grade-a' };
@@ -115,7 +105,7 @@ function calculateGrade(marks) {
     return { grade: 'F', class: 'grade-f' };
 }
 
-// Apply filters
+
 function applyFilters() {
     const studentFilter = document.getElementById('studentFilter').value;
     const subjectFilter = document.getElementById('subjectFilter').value;
@@ -129,14 +119,13 @@ function applyFilters() {
     renderTable();
 }
 
-// Format date
 function formatDate(dateString) {
     if (!dateString) return '-';
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 }
 
-// Render table
+
 function renderTable() {
     const tbody = document.getElementById('tableBody');
     
@@ -165,7 +154,7 @@ function renderTable() {
     }).join('');
 }
 
-// Open modal
+
 function openModal() {
     editingId = null;
     document.getElementById('modalTitle').textContent = 'Add New Result';
@@ -173,15 +162,12 @@ function openModal() {
     document.getElementById('resultForm').reset();
     document.getElementById('resultModal').classList.add('show');
 }
-
-// Close modal
 function closeModal() {
     document.getElementById('resultModal').classList.remove('show');
     document.getElementById('resultForm').reset();
     editingId = null;
 }
 
-// Edit result
 function editResult(id) {
     const result = results.find(r => r.id === id);
     if (!result) return;
@@ -196,7 +182,7 @@ function editResult(id) {
     document.getElementById('resultModal').classList.add('show');
 }
 
-// Handle form submit
+
 function handleSubmit(e) {
     e.preventDefault();
 
@@ -211,7 +197,7 @@ function handleSubmit(e) {
     }
 
     if (editingId) {
-        // Update existing result
+       
         const index = results.findIndex(r => r.id === editingId);
         if (index !== -1) {
             results[index] = {
@@ -224,7 +210,7 @@ function handleSubmit(e) {
         }
         showNotification('Result updated successfully!');
     } else {
-        // Add new result
+    
         const newResult = {
             id: Date.now(),
             studentName,
@@ -242,13 +228,12 @@ function handleSubmit(e) {
     closeModal();
 }
 
-// Delete result
+
 function deleteResult(id) {
     deleteId = id;
     document.getElementById('deleteModal').classList.add('show');
 }
 
-// Confirm delete
 function confirmDelete() {
     if (deleteId) {
         results = results.filter(r => r.id !== deleteId);
@@ -260,13 +245,11 @@ function confirmDelete() {
     }
 }
 
-// Close delete modal
 function closeDeleteModal() {
     document.getElementById('deleteModal').classList.remove('show');
     deleteId = null;
 }
 
-// Show notification
 function showNotification(message) {
     const notification = document.getElementById('notification');
     notification.textContent = message;
@@ -277,7 +260,7 @@ function showNotification(message) {
     }, 3000);
 }
 
-// Close modal on outside click
+
 window.onclick = function(event) {
     const resultModal = document.getElementById('resultModal');
     const deleteModal = document.getElementById('deleteModal');
