@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results - Result Management System</title>
+    <link rel="stylesheet" href="results.css">
+</head>
+<body>
+    <!-- Background container - You can add your background image here -->
+    <div class="background-container"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Student Result Management System</h1>
+        </header>
+
+        <!-- Tab Navigation -->
+        <nav class="tab-navigation">
+            <a href="students.html" class="tab-link">Students</a>
+            <a href="sections.html" class="tab-link">Sections</a>
+            <a href="results.html" class="tab-link active">Results</a>
+        </nav>
+
+        <!-- Section Header -->
+        <div class="section-header">
+            <h2>Results</h2>
+            <button class="btn btn-primary" onclick="openModal()">
+                <span class="icon">+</span> Add New Result
+            </button>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <div class="filter-group">
+                <label for="studentFilter">Filter by Student:</label>
+                <select id="studentFilter" class="filter-select" onchange="applyFilters()">
+                    <option value="">All Students</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="subjectFilter">Filter by Subject:</label>
+                <select id="subjectFilter" class="filter-select" onchange="applyFilters()">
+                    <option value="">All Subjects</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Results Table -->
+        <div class="table-container">
+            <table class="data-table" id="resultsTable">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Subject</th>
+                        <th>Marks</th>
+                        <th>Grade</th>
+                        <th>Exam Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Data will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Add/Edit Result Modal -->
+    <div id="resultModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add New Result</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="resultForm" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="resultStudent">Student <span class="required">*</span></label>
+                    <select id="resultStudent" class="form-select" required>
+                        <option value="">Select Student</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="resultSubject">Subject <span class="required">*</span></label>
+                    <input type="text" id="resultSubject" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="resultMarks">Marks (0-100) <span class="required">*</span></label>
+                    <input type="number" id="resultMarks" class="form-input" min="0" max="100" required>
+                </div>
+                <div class="form-group">
+                    <label for="examDate">Exam Date</label>
+                    <input type="date" id="examDate" class="form-input">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn">Create Result</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h3>Confirm Delete</h3>
+                <button class="close-btn" onclick="closeDeleteModal()">&times;</button>
+            </div>
+            <p class="delete-message">Are you sure you want to delete this result?</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+                <button class="btn btn-danger" onclick="confirmDelete()">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Notification -->
+    <div id="notification" class="notification"></div>
+
+    <script src="results.js"></script>
+</body>
+</html>
