@@ -21,22 +21,22 @@ function loadData() {
         students = [
             {
                 id: 1,
-                name: 'Aditya Kumar Sharma',
-                email: 'Aditya@gmail.com',
+                name: 'vivaan jaiswal',
+                email: 'vivaan@gmail.com',
                 section: 'Computer Science',
                 enrollmentDate: '2024-01-15'
             },
             {
                 id: 2,
-                name: 'Shreshti Mittal',
-                email: 'Shreshti@gmail.com',
+                name: 'achutanand jha',
+                email: 'achutanand@gmail.com',
                 section: 'Mathematics',
                 enrollmentDate: '2024-01-20'
             },
             {
                 id: 3,
-                name: 'Anirudh Singh',
-                email: 'Anirudh@gmail.com',
+                name: 'faizan khan',
+                email: 'faizan@gmail.com',
                 section: 'Physics',
                 enrollmentDate: '2024-02-01'
             }
