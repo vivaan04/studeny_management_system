@@ -7,23 +7,22 @@
     <link rel="stylesheet" href="students.css">
 </head>
 <body>
-    <!-- Background container - You can add your background image here -->
+
     <div class="background-container"></div>
     
     <div class="container">
-        <!-- Header -->
+       
         <header class="header">
             <h1>Student Result Management System</h1>
         </header>
 
-        <!-- Tab Navigation -->
+  
         <nav class="tab-navigation">
             <a href="students.html" class="tab-link active">Students</a>
             <a href="sections.html" class="tab-link">Sections</a>
             <a href="results.html" class="tab-link">Results</a>
         </nav>
 
-        <!-- Section Header -->
         <div class="section-header">
             <h2>Students</h2>
             <button class="btn btn-primary" onclick="openModal()">
@@ -31,7 +30,6 @@
             </button>
         </div>
 
-        <!-- Students Table -->
         <div class="table-container">
             <table class="data-table" id="studentsTable">
                 <thead>
@@ -44,13 +42,13 @@
                     </tr>
                 </thead>
                 <tbody id="tableBody">
-                    <!-- Data will be inserted here -->
+                  
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!-- Add/Edit Student Modal -->
+ 
     <div id="studentModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -83,8 +81,6 @@
             </form>
         </div>
     </div>
-
-    <!-- Delete Confirmation Modal -->
     <div id="deleteModal" class="modal">
         <div class="modal-content modal-small">
             <div class="modal-header">
@@ -99,7 +95,7 @@
         </div>
     </div>
 
-    <!-- Success Notification -->
+    
     <div id="notification" class="notification"></div>
 
     <script src="students.js"></script>
