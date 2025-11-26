@@ -1,22 +1,20 @@
-// Sections data storage
+
 let sections = [];
 let students = [];
 let editingId = null;
 let deleteId = null;
 
-// Initialize
 document.addEventListener('DOMContentLoaded', function() {
     loadData();
     renderTable();
 });
 
-// Load data from localStorage
 function loadData() {
     const savedSections = localStorage.getItem('sections');
     if (savedSections) {
         sections = JSON.parse(savedSections);
     } else {
-        // Sample data
+      
         sections = [
             {
                 id: 1,
@@ -42,24 +40,20 @@ function loadData() {
         saveData();
     }
 
-    // Load students to calculate total
     const savedStudents = localStorage.getItem('students');
     if (savedStudents) {
         students = JSON.parse(savedStudents);
     }
 }
 
-// Save data to localStorage
 function saveData() {
     localStorage.setItem('sections', JSON.stringify(sections));
 }
 
-// Calculate total students per section
 function getTotalStudents(sectionName) {
     return students.filter(student => student.section === sectionName).length;
 }
 
-// Render table
 function renderTable() {
     const tbody = document.getElementById('tableBody');
     
@@ -83,7 +77,6 @@ function renderTable() {
     `).join('');
 }
 
-// Open modal
 function openModal() {
     editingId = null;
     document.getElementById('modalTitle').textContent = 'Add New Section';
@@ -92,14 +85,13 @@ function openModal() {
     document.getElementById('sectionModal').classList.add('show');
 }
 
-// Close modal
 function closeModal() {
     document.getElementById('sectionModal').classList.remove('show');
     document.getElementById('sectionForm').reset();
     editingId = null;
 }
 
-// Edit section
+
 function editSection(id) {
     const section = sections.find(s => s.id === id);
     if (!section) return;
@@ -112,7 +104,6 @@ function editSection(id) {
     document.getElementById('sectionModal').classList.add('show');
 }
 
-// Handle form submit
 function handleSubmit(e) {
     e.preventDefault();
 
@@ -120,7 +111,7 @@ function handleSubmit(e) {
     const description = document.getElementById('sectionDescription').value;
 
     if (editingId) {
-        // Update existing section
+
         const index = sections.findIndex(s => s.id === editingId);
         if (index !== -1) {
             const oldName = sections[index].name;
@@ -130,7 +121,6 @@ function handleSubmit(e) {
                 description
             };
 
-            // Update student sections if name changed
             if (oldName !== name) {
                 students = students.map(student => {
                     if (student.section === oldName) {
@@ -143,7 +133,7 @@ function handleSubmit(e) {
         }
         showNotification('Section updated successfully!');
     } else {
-        // Add new section
+
         const newSection = {
             id: Date.now(),
             name,
@@ -158,13 +148,13 @@ function handleSubmit(e) {
     closeModal();
 }
 
-// Delete section
+
 function deleteSection(id) {
     deleteId = id;
     document.getElementById('deleteModal').classList.add('show');
 }
 
-// Confirm delete
+
 function confirmDelete() {
     if (deleteId) {
         sections = sections.filter(s => s.id !== deleteId);
@@ -175,13 +165,12 @@ function confirmDelete() {
     }
 }
 
-// Close delete modal
 function closeDeleteModal() {
     document.getElementById('deleteModal').classList.remove('show');
     deleteId = null;
 }
 
-// Show notification
+
 function showNotification(message) {
     const notification = document.getElementById('notification');
     notification.textContent = message;
@@ -192,7 +181,7 @@ function showNotification(message) {
     }, 3000);
 }
 
-// Close modal on outside click
+
 window.onclick = function(event) {
     const sectionModal = document.getElementById('sectionModal');
     const deleteModal = document.getElementById('deleteModal');
