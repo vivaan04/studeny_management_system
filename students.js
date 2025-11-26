@@ -1,23 +1,21 @@
-// Students data storage
+
 let students = [];
 let sections = [];
 let editingId = null;
 let deleteId = null;
 
-// Initialize
 document.addEventListener('DOMContentLoaded', function() {
     loadData();
     loadSections();
     renderTable();
 });
 
-// Load data from localStorage
 function loadData() {
     const savedStudents = localStorage.getItem('students');
     if (savedStudents) {
         students = JSON.parse(savedStudents);
     } else {
-        // Sample data
+       
         students = [
             {
                 id: 1,
@@ -45,7 +43,7 @@ function loadData() {
     }
 }
 
-// Load sections
+
 function loadSections() {
     const savedSections = localStorage.getItem('sections');
     if (savedSections) {
@@ -61,7 +59,7 @@ function loadSections() {
     populateSectionDropdown();
 }
 
-// Populate section dropdown
+
 function populateSectionDropdown() {
     const select = document.getElementById('studentSection');
     select.innerHTML = '<option value="">Select Section</option>';
@@ -73,12 +71,12 @@ function populateSectionDropdown() {
     });
 }
 
-// Save data to localStorage
+
 function saveData() {
     localStorage.setItem('students', JSON.stringify(students));
 }
 
-// Render table
+
 function renderTable() {
     const tbody = document.getElementById('tableBody');
     
@@ -103,13 +101,12 @@ function renderTable() {
     `).join('');
 }
 
-// Format date
+
 function formatDate(dateString) {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 }
 
-// Open modal
 function openModal() {
     editingId = null;
     document.getElementById('modalTitle').textContent = 'Add New Student';
@@ -117,15 +114,12 @@ function openModal() {
     document.getElementById('studentForm').reset();
     document.getElementById('studentModal').classList.add('show');
 }
-
-// Close modal
 function closeModal() {
     document.getElementById('studentModal').classList.remove('show');
     document.getElementById('studentForm').reset();
     editingId = null;
 }
 
-// Edit student
 function editStudent(id) {
     const student = students.find(s => s.id === id);
     if (!student) return;
@@ -139,8 +133,6 @@ function editStudent(id) {
     document.getElementById('enrollmentDate').value = student.enrollmentDate || '';
     document.getElementById('studentModal').classList.add('show');
 }
-
-// Handle form submit
 function handleSubmit(e) {
     e.preventDefault();
 
@@ -150,7 +142,7 @@ function handleSubmit(e) {
     const enrollmentDate = document.getElementById('enrollmentDate').value;
 
     if (editingId) {
-        // Update existing student
+        
         const index = students.findIndex(s => s.id === editingId);
         if (index !== -1) {
             students[index] = {
@@ -163,7 +155,7 @@ function handleSubmit(e) {
         }
         showNotification('Student updated successfully!');
     } else {
-        // Add new student
+        
         const newStudent = {
             id: Date.now(),
             name,
@@ -180,13 +172,12 @@ function handleSubmit(e) {
     closeModal();
 }
 
-// Delete student
+
 function deleteStudent(id) {
     deleteId = id;
     document.getElementById('deleteModal').classList.add('show');
 }
 
-// Confirm delete
 function confirmDelete() {
     if (deleteId) {
         students = students.filter(s => s.id !== deleteId);
@@ -197,13 +188,11 @@ function confirmDelete() {
     }
 }
 
-// Close delete modal
 function closeDeleteModal() {
     document.getElementById('deleteModal').classList.remove('show');
     deleteId = null;
 }
 
-// Show notification
 function showNotification(message) {
     const notification = document.getElementById('notification');
     notification.textContent = message;
@@ -213,8 +202,6 @@ function showNotification(message) {
         notification.classList.remove('show');
     }, 3000);
 }
-
-// Close modal on outside click
 window.onclick = function(event) {
     const studentModal = document.getElementById('studentModal');
     const deleteModal = document.getElementById('deleteModal');
